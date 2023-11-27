@@ -1,0 +1,135 @@
+package Student;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+class Student {
+ private String name;
+ private int rollNumber;
+ private String course;
+ private String bloodgroup;
+ private String fathername;
+ private String mothername;
+ public Student(String name, int rollNumber, String course, String bloodgroup, String fathername, 
+String mothername) {
+ this.name = name;
+ this.rollNumber = rollNumber;
+ this.course = course;
+ this.bloodgroup = bloodgroup;
+ this.fathername = fathername;
+ this.mothername = mothername;
+ 
+ }
+ public String getName() {
+ return name;
+ }
+ public int getRollNumber() {
+ return rollNumber;
+ }
+ public String getCourse() {
+ return course;
+ }
+ public String getBloodgroup() {
+ return bloodgroup;
+ }
+ public String getFathername() {
+ return fathername;
+ }
+ public String getMothername() {
+ return mothername;
+ }
+}
+class StudentDatabase {
+ private List<Student> students;
+ public StudentDatabase() {
+ students = new ArrayList<>();
+ }
+ public void addStudent(Student student) {
+ students.add(student);
+ System.out.println("Student added successfully.");
+ }
+ public void displayStudents() {
+ if (students.isEmpty()) {
+ System.out.println("No student records found.");
+ return;
+ }
+ System.out.println("Student Records:");
+ for (Student student : students) {
+ System.out.println("Name: " + student.getName());
+ System.out.println("Roll Number: " + student.getRollNumber());
+ System.out.println("Course: " + student.getCourse());
+ System.out.println("Blood group: " + student.getBloodgroup());
+ System.out.println("Father's Name: " + student.getFathername());
+ System.out.println("Mother's Name: " + student.getMothername());
+ System.out.println("--------------------");
+ }
+ }
+ public void searchStudent(int rollNumber) {
+ for (Student student : students) {
+ if (student.getRollNumber() == rollNumber) {
+ System.out.println("Name: " + student.getName());
+ System.out.println("Roll Number: " + student.getRollNumber());
+ System.out.println("Course: " + student.getCourse());
+ System.out.println("Blood group: " + student.getBloodgroup());
+ System.out.println("Father's Name: " + student.getFathername());
+ System.out.println("Mother's Name: " + student.getMothername());
+ return;
+ }
+ }
+ System.out.println("Student with roll number " + rollNumber + " not found.");
+ }
+}
+public class StudentInformation {
+ public static void main(String[] args) {
+ Scanner scanner = new Scanner(System.in);
+ StudentDatabase database = new StudentDatabase();
+ while (true) {
+ System.out.println("*********");
+ System.out.println("** Student **");
+ System.out.println("** Information **");
+ System.out.println("** System **");
+ System.out.println("*********");
+ System.out.println("1. Add Student");
+ System.out.println("2. Display Students");
+ System.out.println("3. Search Student");
+ System.out.println("4. Exit");
+ System.out.println("Enter your choice: ");
+ int choice = scanner.nextInt();
+ scanner.nextLine();
+ switch (choice) {
+ case 1:
+ System.out.println("Enter Student Name: ");
+ String name = scanner.nextLine();
+ System.out.println("Enter Roll Number: ");
+ int rollNumber = scanner.nextInt();
+ scanner.nextLine();
+ System.out.println("Enter Course: ");
+ String course = scanner.nextLine();
+ System.out.println("Enter Blood Group: ");
+ String bloodgroup = scanner.nextLine();
+ System.out.println("Enter Father's Name: ");
+ String fathername = scanner.nextLine();
+ System.out.println("Enter Mother's Name: ");
+ String mothername = scanner.nextLine();
+ Student student = new Student(name, rollNumber, course, bloodgroup, fathername, 
+mothername);
+ database.addStudent(student);
+ break;
+ case 2:
+ database.displayStudents();
+ break;
+ case 3:
+ System.out.println("Enter roll number to search: ");
+ int searchRollNumber = scanner.nextInt();
+ scanner.nextLine();
+ database.searchStudent(searchRollNumber);
+ break;
+ case 4:
+ System.out.println("Exiting...");
+ System.exit(0);
+ default:
+ System.out.println("Invalid choice. Please try again.");
+ }
+ }
+ }
+}
